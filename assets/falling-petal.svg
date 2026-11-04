@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="64" viewBox="0 0 32 64">
+  <defs>
+    <linearGradient id="petal" x1="3" y1="30" x2="28" y2="36" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff3ef"/><stop offset=".25" stop-color="#f8c6d5"/><stop offset=".53" stop-color="#ec7fa5"/><stop offset=".72" stop-color="#f5afc7"/><stop offset="1" stop-color="#fff1ee"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="15" y1="10" x2="12" y2="61" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d96a97"/><stop offset=".65" stop-color="#efacc4"/><stop offset="1" stop-color="#fff7e8"/>
+    </linearGradient>
+  </defs>
+  <!-- Detached Lily petal with a tapered base and a recurved pointed tip. -->
+  <path d="M14 62C12 55 3 45 3 33C3 18 15 8 27 2C23 9 30 16 28 27C27 41 18 53 14 62Z" fill="url(#petal)" stroke="#e9a3bb" stroke-width=".55"/>
+  <path d="M14 62C17 46 23 35 22 23C21 13 24 6 27 2C15 14 14 29 15 40C16 49 14 56 14 62Z" fill="url(#fold)" opacity=".65"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M14 60C16 45 21 34 20 23C20 15 23 8 26 3" stroke="#c65f8f" stroke-width=".65" opacity=".7"/>
+    <path d="M13 57C10 43 9 31 14 20C17 13 22 7 25 5M15 58C21 44 26 34 25 22" stroke="#fff8f3" stroke-width=".85" opacity=".9"/>
+    <path d="M12 51C6 36 8 26 15 16M18 49C24 35 25 29 24 21" stroke="#dc7eaa" stroke-width=".45" opacity=".6"/>
+    <path d="M25 4C22 10 25 15 26 18" stroke="#fff7f4" stroke-width="1.2"/>
+  </g>
+</svg>

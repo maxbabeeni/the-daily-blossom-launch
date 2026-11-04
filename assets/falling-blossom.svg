@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="lily" x1="18" y1="12" x2="29" y2="12" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff4ed"/><stop offset=".48" stop-color="#ee94b4"/><stop offset=".7" stop-color="#f5bfd0"/><stop offset="1" stop-color="#fff4ed"/>
+    </linearGradient>
+    <g id="blade">
+      <path d="M24 26C19 20 17 13 20 7C22 4 24 2 25 1C24 6 30 10 29 15C29 20 26 24 24 26Z" fill="url(#lily)" stroke="#e7a1bc" stroke-width=".5"/>
+      <path d="M24 25C25 17 23 10 25 2" fill="none" stroke="#d8719d" stroke-width=".65" opacity=".7"/>
+      <path d="M23 23C20 16 20 12 22 8" fill="none" stroke="#fff9f0" stroke-width=".7"/>
+    </g>
+  </defs>
+  <g opacity=".85"><use href="#blade" transform="rotate(30 24 24)"/><use href="#blade" transform="rotate(150 24 24)"/><use href="#blade" transform="rotate(270 24 24)"/></g>
+  <use href="#blade" transform="rotate(-30 24 24)"/><use href="#blade" transform="rotate(90 24 24)"/><use href="#blade" transform="rotate(210 24 24)"/>
+  <g fill="none" stroke="#b99862" stroke-width=".65" stroke-linecap="round"><path d="M24 25L20 20M24 25L25 18M24 25L29 22"/></g>
+  <g fill="#b99862"><ellipse cx="20" cy="20" rx="1.25" ry=".7" transform="rotate(35 20 20)"/><ellipse cx="25" cy="18" rx=".7" ry="1.25"/><ellipse cx="29" cy="22" rx="1.2" ry=".7" transform="rotate(-30 29 22)"/></g>
+</svg>
