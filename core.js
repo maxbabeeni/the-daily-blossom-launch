@@ -15,6 +15,9 @@
     if(!/^\+[1-9]\d{6,14}$/.test(String(data.phone||'').replace(/[\s().-]/g,'')))e.phone='Include your country code, for example +1 202 555 0123.';
     if(!/^[A-Z]{2}$/.test(String(data.country||'')))e.country='Please choose your country.';
     if(String(data.company||'').length>160)e.company='Please use no more than 160 characters.';
+    if(String(data.businessRole||'').length>160)e.businessRole='Please use no more than 160 characters.';
+    if(data.retailLocations&&!['Online only','1 store','2–5 stores','6+ stores'].includes(data.retailLocations))e.retailLocations='Please choose one of the listed options.';
+    if(String(data.message||'').length>2000)e.message='Please use no more than 2,000 characters.';
     return e;
   }
   function filterProducts(products,pattern,colour){return products.filter(p=>p.published!==false&&(!pattern||p.patterns.includes(pattern))&&(!colour||p.colours.includes(colour)));}

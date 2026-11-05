@@ -38,3 +38,6 @@ The locally remembered registration flag is a marketing gate, not access control
 - Lily motion: `flower.js`, `lily-reference-flow.js`, approved images in `assets/`
 
 Self-hosted Google Fonts licences are included in `assets/`. Classic Vogue is not bundled; the serif fallback is used.
+
+
+Lead form: required Name, Phone (international country code), Email and Country. Optional Company Legal Name (`company`), Business Type/Role (`businessRole`), Number of Retail Locations (`retailLocations`: Online only / 1 store / 2–5 stores / 6+ stores), and Message/Specific Requirements (`message`). Email updates consent remains optional and unchecked. Map these fields when connecting the lead endpoint.
