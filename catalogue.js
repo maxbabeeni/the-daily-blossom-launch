@@ -9,7 +9,7 @@
   if(!url)return false;
   const marker=key+'.pdf-download.v1';
   try{if(localStorage.getItem(marker)==='1')return false;localStorage.setItem(marker,'1');}catch(e){}
-  const a=document.createElement('a');a.href=url;a.download=filename;a.hidden=true;document.body.append(a);a.click();a.remove();return true;
+  const frame=document.createElement('iframe');frame.hidden=true;frame.title='Catalogue PDF download';frame.src=url;document.body.append(frame);setTimeout(()=>frame.remove(),120000);return true;
  }
  window.BlossomCatalogue={lockedCards,requestDownload,filename};
 })();

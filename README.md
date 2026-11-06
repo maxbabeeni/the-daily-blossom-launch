@@ -25,7 +25,7 @@ Until configured, the form offers email and WhatsApp contact options and does no
 ## Catalogue and product preview
 
 Six preview looks plus three catalogue-unlock cards. Colour and Pattern filters remain available.
-The verified 64-page catalogue PDF is included in `downloads/`.
+The current 64-page catalogue is hosted on Google Drive; Heyzine is used for the online reader. The historical file in `downloads/` is retained but is not the current download target.
 Accepted registrants see the Heyzine viewer and receive one automatic download request; a visible PDF download link is the fallback when browser settings prevent automatic saving.
 The locally remembered registration flag is a marketing gate, not access control for the public PDF.
 
@@ -41,3 +41,10 @@ Self-hosted Google Fonts licences are included in `assets/`. Classic Vogue is no
 
 
 Lead form: required Name, Phone (international country code), Email and Country. Optional Company Legal Name (`company`), Business Type/Role (`businessRole`), Number of Retail Locations (`retailLocations`: Online only / 1 store / 2–5 stores / 6+ stores), and Message/Specific Requirements (`message`). Email updates consent remains optional and unchecked. Map these fields when connecting the lead endpoint.
+
+
+## 6 November launching refresh
+
+Updated approved section imagery, collection copy, six-look filter scope, optional colourways, detail magnifier and responsive layouts. Current online reader: https://heyzine.com/flip-book/490dbb64d6.html . PDF: https://drive.google.com/file/d/1FUKRrjYrIxtHLfVwsMkqhHQe9voY7Iah/view .
+
+The working Google Sheets connector belongs to the LadiPage-hosted site. It cannot be enabled by copying LadiPage JavaScript into GitHub Pages. This static repository intentionally keeps `formMode: unconfigured` until a dedicated acknowledged HTTPS lead endpoint is supplied. No private spreadsheet ID, lead rows, OAuth tokens, service-account keys or LadiPage account settings are included. `ladi-form-adapter.js` is inactive on this GitHub build.

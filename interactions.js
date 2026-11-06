@@ -31,7 +31,7 @@
    const item=items.find(x=>x.sku===sku);if(!item)return;
    detail.setUnlocked(false);
    outfit.src=item.image;outfit.width=item.width;outfit.height=item.height;outfit.alt=item.sku+' — complete outfit';
-   photo.src=item.closeup||item.image;photo.width=item.width;photo.height=item.height;photo.alt=item.sku+' — '+(item.technique||'catalogue detail');
+   photo.src=item.closeup||item.image;photo.width=item.closeupWidth||item.width;photo.height=item.closeupHeight||item.height;photo.alt=item.sku+' — '+(item.technique||'catalogue detail');
    label.textContent=item.sku;
    buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.detailSku===sku)));
    detail.setUnlocked(true);

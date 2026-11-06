@@ -1,8 +1,8 @@
 window.BLOSSOM_CONFIG = Object.freeze({
   launchMode: 'live', collectionName: 'The Daily Blossom', season: 'Spring–Summer 2027',
   campaignStart: '2026-10-31T00:00:00+07:00', launchAt: '2026-11-05T00:00:00+07:00',
-  catalogUrl: 'https://heyzine.com/flip-book/5309d59bb5.html',
-  catalogPdfUrl: 'downloads/The-Daily-Blossom-SS27-Catalogue.pdf',
+  catalogUrl: 'https://heyzine.com/flip-book/490dbb64d6.html',
+  catalogPdfUrl: 'https://drive.google.com/uc?export=download&id=1FUKRrjYrIxtHLfVwsMkqhHQe9voY7Iah',
   email: 'customer@babeeni.com', phone: '+84823776668', phoneDisplay: '+84 82 377 6668',
   website: 'https://babeeni.com', facebook: 'https://www.facebook.com/babeeni66',
   community: 'https://www.facebook.com/groups/1612278069005489',

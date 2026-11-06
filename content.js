@@ -23,8 +23,8 @@ window.BLOSSOM_CONTENT = {
   ],
   palette: [['Lemon Sorbet','#f5e998'],['Pop Pink','#f7a6c3'],['Soft Blue','#c8e0f1'],['Raw Milk','#fffaf1'],['Meadowland Green','#96a382']],
   details: [
-    {sku:'DR4695',technique:'Shirring & bow details',description:'Shirring finished with attached bow details.',image:'assets/dr4695.jpg',width:884,height:1250},
-    {sku:'DR4697',technique:'Crochet',description:'Handcrafted crochet detailing.',image:'assets/dr4697.jpg',width:884,height:1250},
-    {sku:'DR4723',technique:'Shirring & beaded floral appliqué',description:'A square neckline and a shirred chest, with a floral appliqué and beaded centre on one side.',image:'assets/dr4723.jpg',width:884,height:1250}
+    {sku:'DR4695',technique:'Shirring & bow details',description:'Shirring finished with attached bow details.',image:'assets/details-shirring-look-v2.webp',closeup:'assets/details-shirring-closeup-v3.webp',width:1608,height:1590,closeupWidth:1608,closeupHeight:1060},
+    {sku:'DR4697',technique:'Crochet',description:'Handcrafted crochet detailing.',image:'assets/details-crochet-look-v3.webp',closeup:'assets/details-crochet-closeup-v3.webp',width:1608,height:1590,closeupWidth:1608,closeupHeight:1060},
+    {sku:'DR4721',technique:'Appliqué',description:'Floral appliqué details.',image:'assets/details-applique-look-v2.webp',closeup:'assets/details-applique-closeup-v2.webp',width:1608,height:1590,closeupWidth:1608,closeupHeight:1060}
   ]
 };

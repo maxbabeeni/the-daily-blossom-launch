@@ -20,6 +20,7 @@
     if(String(data.message||'').length>2000)e.message='Please use no more than 2,000 characters.';
     return e;
   }
+  function previewProducts(products){return products.filter(p=>p.published!==false).slice(0,6);}
   function filterProducts(products,pattern,colour){return products.filter(p=>p.published!==false&&(!pattern||p.patterns.includes(pattern))&&(!colour||p.colours.includes(colour)));}
   function parseCsv(input){
     const rows=[];let row=[],s='',quoted=false;
@@ -31,10 +32,10 @@
   function safeImage(value){return /^(https:\/\/|assets\/[a-z\d._-]+$|data:image\/(jpeg|png|webp);base64,)/i.test(String(value));}
   function normaliseProducts(rows){
     const seen=new Set();return rows.map(r=>{
-      const p={sku:String(r.sku||'').trim(),name:String(r.name||'').trim(),image:String(r.image||'').trim(),width:Number(r.width)||900,height:Number(r.height)||1250,patterns:Array.isArray(r.patterns)?r.patterns:String(r.patterns||'').split('|').map(x=>x.trim()).filter(Boolean),colours:Array.isArray(r.colours)?r.colours:String(r.colours||'').split('|').map(x=>x.trim()).filter(Boolean),fabric:String(r.fabric||''),published:r.published!==false&&String(r.published).toLowerCase()!=='false'};
+      const p={sku:String(r.sku||'').trim(),name:String(r.name||'').trim(),image:String(r.image||'').trim(),width:Number(r.width)||900,height:Number(r.height)||1250,patterns:Array.isArray(r.patterns)?r.patterns:String(r.patterns||'').split('|').map(x=>x.trim()).filter(Boolean),colours:Array.isArray(r.colours)?r.colours:String(r.colours||'').split('|').map(x=>x.trim()).filter(Boolean),optionalColours:Array.isArray(r.optionalColours)?r.optionalColours:String(r.optionalColours||'').split('|').map(x=>x.trim()).filter(Boolean),fabric:String(r.fabric||''),published:r.published!==false&&String(r.published).toLowerCase()!=='false'};
       if(!p.sku||!p.name||!safeImage(p.image)||seen.has(p.sku))throw Error('Invalid or duplicate product record');seen.add(p.sku);return p;
     });
   }
   function acknowledged(response){return !!response&&response.ok===true&&typeof response.receiptId==='string'&&response.receiptId.trim().length>0;}
-  return Object.freeze({DAY,timestamp,state,countdown,validate,filterProducts,parseCsv,normaliseProducts,acknowledged});
+  return Object.freeze({DAY,timestamp,state,countdown,validate,previewProducts,filterProducts,parseCsv,normaliseProducts,acknowledged});
 });

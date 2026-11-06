@@ -6,7 +6,7 @@
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const storage={get(key){try{return localStorage.getItem(key);}catch(e){return null;}},set(key,value){try{localStorage.setItem(key,value);}catch(e){}},remove(key){try{localStorage.removeItem(key);}catch(e){}}};
  const registrationKey=config.registrationKey+(preview?'.preview':''),introKey=config.introKey+(preview?'.preview':'');
- let virtualTime=preview?Date.parse(config.previewAt):null,virtualBegan=performance.now(),phase=null,day=null,products=core.normaliseProducts(window.BLOSSOM_PRODUCTS||[]),limit=6,registered=storage.get(registrationKey)==='1',modal=null,intro=null,visibleProducts=[];
+ let virtualTime=preview?Date.parse(config.previewAt):null,virtualBegan=performance.now(),phase=null,day=null,products=core.previewProducts(core.normaliseProducts(window.BLOSSOM_PRODUCTS||[])),limit=6,registered=storage.get(registrationKey)==='1',modal=null,intro=null,visibleProducts=[];
  let sourceRequested=false,selectedSku='',pending=false;
  const content=window.BLOSSOM_CONTENT,hints=content.hints,palette=content.palette;
  const lockSvg='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3"/><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M12 14v3"/></svg>';
@@ -57,18 +57,18 @@
  }
  function renderProducts(){
    visibleProducts=core.filterProducts(products,$('#filter-pattern').value,$('#filter-colour').value);const shown=visibleProducts.slice(0,limit);
-   $('#product-grid').innerHTML=shown.map(p=>'<article class="product-card"><div class="product-image"><img src="'+esc(p.image)+'" width="'+p.width+'" height="'+p.height+'" alt="'+esc(p.sku+' — '+p.name)+'" loading="lazy"></div><p class="product-sku">'+esc(p.sku)+'</p><h3>'+esc(p.name)+'</h3><dl class="product-meta"><dt>Pattern</dt><dd>'+esc(p.patterns.join(' / '))+'</dd><dt>Shown in</dt><dd>'+esc(p.colours.join(' / ')||'Ask our team')+'</dd><dt>Fabric</dt><dd>'+esc(p.fabric||'Details available from our team')+'</dd></dl><a href="#signup" data-product-enquiry="'+esc(p.sku)+'">Enquire about this design ↗</a></article>').join('');
+   $('#product-grid').innerHTML=shown.map(p=>'<article class="product-card"><div class="product-image"><img src="'+esc(p.image)+'" width="'+p.width+'" height="'+p.height+'" alt="'+esc(p.sku+' — '+p.name)+'" loading="lazy"></div><p class="product-sku">'+esc(p.sku)+'</p><h3>'+esc(p.name)+'</h3><dl class="product-meta"><dt>Pattern</dt><dd>'+esc(p.patterns.join(' / '))+'</dd><dt>Main Colour</dt><dd>'+esc(p.colours.join(' / ')||'Ask our team')+'</dd>'+(p.optionalColours.length?'<dt>Optional</dt><dd>'+esc(p.optionalColours.join(' | '))+'</dd>':'')+'<dt>Fabric</dt><dd>'+esc(p.fabric||'Details available from our team')+'</dd></dl><a href="#signup" data-product-enquiry="'+esc(p.sku)+'">Enquire about this design ↗</a></article>').join('');
    $('#product-grid').insertAdjacentHTML('beforeend',window.BlossomCatalogue.lockedCards());
    $('#product-count').textContent=shown.length+' preview looks · Full collection in the catalogue';$('#empty-products').hidden=visibleProducts.length!==0;$('#load-more').hidden=true;
  }
  async function updateProducts(){
    if(sourceRequested||!config.productsCsvUrl)return;sourceRequested=true;
-   try{const url=new URL(config.productsCsvUrl);if(url.protocol!=='https:')return;if(url.href.includes('1vgZJ36CXnl1dewiQPtlAk68LsEpSrrS6kWPIoP6lpn4'))throw Error('Lead sheet is not a product source');const response=await fetch(url.href,{signal:AbortSignal.timeout(8000),credentials:'omit'});if(!response.ok)throw Error('Product source unavailable');const fresh=core.normaliseProducts(core.parseCsv(await response.text()));if(!fresh.length)throw Error('Empty product feed');products=fresh;renderFilters();renderProducts();}catch(e){console.warn('Product feed unavailable. Using the bundled catalogue snapshot.');}
+   try{const url=new URL(config.productsCsvUrl);if(url.protocol!=='https:')return;const response=await fetch(url.href,{signal:AbortSignal.timeout(8000),credentials:'omit'});if(!response.ok)throw Error('Product source unavailable');const fresh=core.normaliseProducts(core.parseCsv(await response.text()));if(!fresh.length)throw Error('Empty product feed');products=core.previewProducts(fresh);renderFilters();renderProducts();}catch(e){console.warn('Product feed unavailable. Using the bundled catalogue snapshot.');}
  }
  function showCatalogue(scroll=false){
    if(phase!=='live'||!registered)return;const section=$('#catalogue');section.hidden=false;
-   if(!$('#catalogue-viewer iframe')){const frame=document.createElement('iframe');frame.src=config.catalogUrl;frame.title='The Daily Blossom SS27 full catalogue';frame.allow='autoplay; fullscreen; clipboard-write';frame.allowFullscreen=true;frame.loading='lazy';frame.referrerPolicy='strict-origin-when-cross-origin';$('#catalogue-viewer').append(frame);}
-   $('.catalogue-pdf-link').href=config.catalogPdfUrl;window.BlossomCatalogue.requestDownload(config.catalogPdfUrl,registrationKey);
+   if(!$('#catalogue-viewer iframe')){const frame=document.createElement('iframe');frame.src=config.catalogUrl;frame.title='The Daily Blossom SS27 full catalogue';frame.allow='autoplay; fullscreen; clipboard-write';frame.allowFullscreen=true;frame.scrolling='no';frame.loading='lazy';frame.referrerPolicy='strict-origin-when-cross-origin';$('#catalogue-viewer').append(frame);}
+   $('.catalogue-pdf-link').href=config.catalogPdfUrl;$('.catalogue-pdf-link').target='_blank';$('.catalogue-pdf-link').rel='noopener';window.BlossomCatalogue.requestDownload(config.catalogPdfUrl,registrationKey);
    if(scroll)section.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'});
  }
  function syncRegistration(){
@@ -83,7 +83,7 @@
  function accepted(receipt){
    if(!core.acknowledged(receipt))return false;registered=true;storage.set(registrationKey,'1');storage.remove(registrationKey+'.pdf-download.v1');syncRegistration();if(phase==='live')showCatalogue(true);else $('#registered-panel').scrollIntoView({behavior:reduced?'auto':'smooth',block:'center'});return true;
  }
- window.Blossom=Object.freeze({onLeadAccepted:accepted,getPhase:()=>phase});
+ window.Blossom=Object.freeze({onLeadAccepted:accepted,onNativeLeadAccepted:()=>{if(config.formMode!=='ladipage'||preview)return false;registered=true;storage.set(registrationKey,'1');storage.remove(registrationKey+'.pdf-download.v1');syncRegistration();if(phase==='live')showCatalogue(true);return true;},getPhase:()=>phase});
  function applyPhase(next,animate){
    const changed=phase!==next;if(changed)closeModal();phase=next;document.body.classList.toggle('is-live',next==='live');all('[data-phase]').forEach(el=>{el.hidden=el.dataset.phase!==next;});
    $('#countdown-wrap').hidden=next==='live';$('#hero-live-copy').hidden=next!=='live';$('#hero-update-box').hidden=next==='live';$('#reveal-rail').hidden=next==='live';
@@ -112,7 +112,8 @@
  let displayNames;try{displayNames=new Intl.DisplayNames(['en'],{type:'region'});}catch(e){}
  const countries=regions.map(code=>[code,displayNames?.of(code)||code]).sort((a,b)=>a[1].localeCompare(b[1]));$('#lead-country').insertAdjacentHTML('beforeend',countries.map(([code,name])=>'<option value="'+code+'">'+esc(name)+'</option>').join(''));
  const form=$('#lead-form');form.addEventListener('submit',async e=>{
-   e.preventDefault();if(pending)return;const data=Object.fromEntries(new FormData(form));data.emailUpdates=$('#email-updates').checked;const errors=core.validate(data);if(data.country&&!regions.includes(data.country))errors.country='Please choose your country.';
+   if(config.formMode==='ladipage'&&!preview)return;
+   e.preventDefault();if(pending)return;const data=Object.fromEntries(new FormData(form));data.emailUpdates=$('#email-updates').checked;data.phone=String(data.phone||'').trim().replace(/[\s().-]/g,'').replace(/^00/,'+');$('#lead-phone').value=data.phone;const errors=core.validate(data);if(data.country&&!regions.includes(data.country))errors.country='Please choose your country.';
    all('.field-error').forEach(el=>el.textContent='');all('[aria-invalid]').forEach(el=>el.removeAttribute('aria-invalid'));$('#form-status').textContent='';
    for(const [key,message] of Object.entries(errors)){$('#error-'+key).textContent=message;$('#lead-'+key).setAttribute('aria-invalid','true');}
    if(Object.keys(errors).length){$('#lead-'+Object.keys(errors)[0]).focus();return;}
